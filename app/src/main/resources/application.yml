@@ -6,3 +6,18 @@ server:
 logging:
   level:
     ROOT: INFO
+
+
+spring:
+  kafka:
+    bootstrap-servers: "localhost:9092"
+    consumer:
+      group-id: spinGroup
+kafka:
+  input:
+    topic: spin-input
+  output:
+    topic: spin-output
+
+stomp:
+  topic: /topic/greeting
