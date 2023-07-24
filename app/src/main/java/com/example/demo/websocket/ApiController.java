@@ -1,6 +1,5 @@
 package com.example.demo.websocket;
 
-import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -16,9 +15,9 @@ public class ApiController {
     @Value("${stomp.event-push-topic}")
     private String stompEventPushTopic;
 
-    private final KafkaTemplate<String, String> kafkaTemplate;
+    private final KafkaTemplate<Object, EventPush<EventPushContent>> kafkaTemplate;
 
-    public ApiController(KafkaTemplate<String, String> kafkaTemplate) {
+    public ApiController(KafkaTemplate<Object, EventPush<EventPushContent>> kafkaTemplate) {
         this.kafkaTemplate = kafkaTemplate;
     }
 
@@ -29,7 +28,7 @@ public class ApiController {
         var eventPushContent = new EventPushContent();
         eventPushContent.setMsg(msg);
         eventpush.setContent(eventPushContent);
-        kafkaTemplate.send(kafkaEventPushTopic, new Gson().toJson(eventpush));
+        kafkaTemplate.send(kafkaEventPushTopic, eventpush);
         return ResponseEntity.ok().body(msg);
     }
 

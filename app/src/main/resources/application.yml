@@ -9,10 +9,21 @@ logging:
 
 
 spring:
+#  kafka:
+#    bootstrap-servers: "localhost:9092"
+#    consumer:
+#      group-id: spinGroup
   kafka:
-    bootstrap-servers: "localhost:9092"
+    bootstrap-servers: dev.marais-stage.com:9092
     consumer:
       group-id: spinGroup
+      bootstrap-servers: dev.marais-stage.com:9092
+      auto-offset-reset: earliest
+    producer:
+      group-id: spinGroup
+      bootstrap-servers: dev.marais-stage.com:9092
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+
 kafka:
   input:
     topic: spin-input
