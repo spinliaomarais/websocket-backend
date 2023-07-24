@@ -1,8 +1,26 @@
 server:
-  port: 8080
+  port: 8082
   servlet:
     context-path: /
 
 logging:
   level:
     ROOT: INFO
+
+
+spring:
+  kafka:
+    bootstrap-servers: "localhost:9092"
+    consumer:
+      group-id: spinGroup
+kafka:
+  input:
+    topic: spin-input
+  output:
+    topic: spin-output
+  event-push:
+    topic: event-push
+
+stomp:
+  topic: /topic/greeting
+  event-push-topic: "/topic/event-push/%s"
